@@ -26,6 +26,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoadingScreen from './src/screens/LoadingScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import AccountScreen from './src/screens/AccountScreen';
+import AdminScreen from './src/screens/AdminScreen';
 
 import {AuthContextProvider} from './src/context/AuthContext';
 import RootNavigation from './src/navigation';
@@ -36,19 +37,19 @@ const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    // <SafeAreaView style={styles.root}>
-    //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-    //   <AuthContextProvider>
-    //     <NavigationContainer>
-    //       <Stack.Navigator>
-    //         <Stack.Screen name="Loading" component={LoadingScreen} />
-    //         <Stack.Screen name="Login" component={LoginScreen} />
-    //         <Stack.Screen name="Account" component={AccountScreen} />
-    //       </Stack.Navigator>
-    //     </NavigationContainer>
-    //   </AuthContextProvider>
-    // </SafeAreaView>
-    <RootNavigation/>
+    <SafeAreaView style={styles.root}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <AuthContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen options={{headerShown: false}} name="Loading" component={LoadingScreen} />
+            <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
+            <Stack.Screen options={{headerShown: false}} name="Account" component={AccountScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthContextProvider>
+    </SafeAreaView>
+    // <RootNavigation/>
   );
 };
 

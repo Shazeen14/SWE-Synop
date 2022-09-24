@@ -1,10 +1,27 @@
-import React from 'react'
-import { Text } from 'react-native'
+import React, { useContext, useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import {Button, withTheme } from "react-native-paper";
+import { StackActions } from "@react-navigation/native";
 
-const AdminScreen = () => {
+import { AuthContext } from "../context/AuthContext"; 
+
+const AdminScreen = ({ navigation, theme }) => {
+    const { logout, loggedIn, userData } = useContext(AuthContext);
+    const { colors } = theme;
+    // useEffect(() => {
+    //   if (loggedIn === false) {
+    //     navigation.dispatch(StackActions.replace("Login"));
+    //   }
+    // }, [loggedIn]);
+
   return (
-    <Text>Welcome to the admin screen</Text>
+    <View>
+        <Text>Welcome to the admin screen</Text>
+            <Button mode="contained" onPress={() => logout()}>
+            Logout
+            </Button>
+    </View>
   )
 }
 
-export default AdminScreen
+export default withTheme(AdminScreen);

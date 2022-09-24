@@ -4,51 +4,22 @@ import { Avatar, Button, withTheme } from "react-native-paper";
 import { StackActions } from "@react-navigation/native";
 
 import { AuthContext } from "../context/AuthContext";
+import AdminScreen from "./AdminScreen";
+import HomeScreen from "./HomeScreen";
 
 const AccountScreen = ({ navigation, theme }) => {
   const { logout, loggedIn, userData } = useContext(AuthContext);
   const { colors } = theme;
-
   useEffect(() => {
     if (loggedIn === false) {
       navigation.dispatch(StackActions.replace("Login"));
     }
   }, [loggedIn]);
 
-  return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      {userData && (
-        <View style={styles.userContainer}>
-          <Avatar.Image size={100} source={{ uri: userData.picture }}/>
-          <View style={styles.textContainer}>
-            <Text>{userData.name}</Text>
-          </View>
-        </View>
-      )}
-
-      <Button mode="contained" onPress={() => logout()}>
-        Logout
-      </Button>
-    </View>
+  return ( userData.name === 'shazeen1999@hotmail.co.uk' ? 
+    <AdminScreen /> :
+    <HomeScreen />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingRight: 30,
-    paddingLeft: 30,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  userContainer: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  textContainer: {
-    marginTop: 10
-  },
-});
 
 export default withTheme(AccountScreen);

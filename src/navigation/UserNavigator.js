@@ -7,7 +7,7 @@ const UserNavigator = () => {
     const UserStack = createStackNavigator()
   return (
       <UserStack.Navigator>
-          <UserStack.Screen name='Account' component={AccountScreen}/>
+          <UserStack.Screen name='Quiz' component={QuizScreen}/>
       </UserStack.Navigator>
 
   )
