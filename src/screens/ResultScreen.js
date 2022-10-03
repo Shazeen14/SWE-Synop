@@ -5,15 +5,15 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import SQLite from 'react-native-sqlite-storage';
 import { COLORS } from '../../constants/theme.js';
 import { AuthContext } from "../context/AuthContext";
+import Title from '../components/title.js';
 
 db = SQLite.openDatabase(
   {
     name: 'rn_sqlite',
     location: 'default',
-    // createFromLocation: '~apprenticeships.db',
   },
   () => {
-    console.log("Database Opened Success");
+    console.log("Result database opened");
   },
   error => {
     console.log("ERROR: " + error);
@@ -34,55 +34,45 @@ const ResultScreen = ({navigation}) => {
         borderBottomWidth: 1,
         borderColor: "black",
       }}>
-        <Text style={{marginRight: 9}}>{item.name}</Text>
-        <Text>{item.Score}</Text>
+        <Text style={{marginRight: 9}}>{item.name + '       ' + item.score}</Text>
       </View>
     )
   }
 
   useEffect( () => {
-    db.transaction((txn) => {
-      txn.executeSql("SELECT TestName, score from Result WHERE User = ?", [userData.name],
+    let allResults = [];
+     db.transaction((txn) => {
+     txn.executeSql("SELECT TestName, score from Result WHERE User = ?", [userData.name],
       (sqlTxn, res) => {console.log("Results received for user");
     let len = res.rows.length;
 
     if (len > 0) {
-      let results = [];
       for (let i = 0; i < len; i++) {
         let item=res.rows.item(i);
-        results.push({name: item.TestName, score: item.Score})
-        console.log(results)
+        allResults.push({name: item.TestName, score: item.Score})
       }
-      //setResults(results);
     }
+    setResults(allResults)
+
   },
       (error) => {console.log(error)}
       )
     })
-  })
+  },[])
 
-
-  // useEffect(() => {
-  //   db.transaction((txn) => {
-  //     txn.executeSql("CREATE TABLE ")
-
-  //   })
-  //   console.log('ON THE RESULTS SCREEN')
-  // }, [])
-  const addUserResults = () => {}
+  const lastFiveResults = results.splice(-5)
+  console.log(lastFiveResults)
   return (
     <View>
-        <View>
-          <FlatList 
-          data={results} 
-          renderItem={renderResult}></FlatList>
-        </View>
         <View style = {styles.imageContainer}>
             <Image style={styles.image} source={require('../images/3.jpg')} />
       </View>
-      <View>
-        <Text>{results}</Text>
-      </View>
+      {results.length > 0 ?
+        <View>
+          <FlatList 
+          data={lastFiveResults} 
+          renderItem={renderResult}/>
+        </View> : <Text>Loading</Text>}
       <View>
       <TouchableOpacity
         onPress={() => navigation.navigate("Apprenticeship")}
@@ -92,7 +82,6 @@ const ResultScreen = ({navigation}) => {
                 textAlign: 'center', color: COLORS.white, fontSize: 20
             }}>Back to Home</Text>
       </TouchableOpacity>
-      {/* <Button title="Save result" onPress={console.log('Saved results')}></Button> */}
       </View>
     </View>
   )

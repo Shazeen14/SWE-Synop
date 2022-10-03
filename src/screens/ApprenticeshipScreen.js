@@ -22,7 +22,7 @@ const ApprenticeshipScreen = () => {
         <Image style={styles.image} source={require('../images/3.jpg')} />
       </View>
           <View>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Quiz")}>
+              <TouchableOpacity testID='course1' style={styles.button} onPress={() => navigation.navigate("Quiz")}>
                   <Text style={styles.buttonText}>Software Developer</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button}>

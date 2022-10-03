@@ -7,28 +7,13 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import SQLite from 'react-native-sqlite-storage';
 import { AuthContext } from "../context/AuthContext";
 
-// db = SQLite.openDatabase(
-//     {
-//       name: 'Apprenticeships',
-//       location: 'default',
-//       // createFromLocation: '~apprenticeships.db',
-//     },
-//     () => {
-//       console.log("Database Opened Success");
-//     },
-//     error => {
-//       console.log("ERROR: " + error);
-//     }
-//   );
-
 db = SQLite.openDatabase(
     {
       name: 'Apprenticeships',
       location: 'default',
-      // createFromLocation: '~apprenticeships.db',
     },
     () => {
-      console.log("Database Opened Success");
+      console.log("Quiz database opened");
     },
     error => {
       console.log("ERROR: " + error);
@@ -46,17 +31,6 @@ const Quiz = ({navigation}) => {
     const [showNextButton, setShowNextButton] = useState(false)
     const [showScoreModal, setShowScoreModal] = useState(false)
     const {userData} = useContext(AuthContext);
-
-    // const createTables = () => {
-    //     db.transaction((txn) => {
-    //       txn.executeSql(
-    //         "CREATE TABLE IF NOT EXISTS Results (id INTEGER PRIMARY KEY AUTOINCREMENT, TestName TEXT, Score TEXT)", [],
-    //         (sqlTxn, res) => { console.log('table created successfully')
-    //         },
-    //         error => {console.log('error on creating table') + error.message},
-    //         )
-    //     })
-    //   }
 
     const createTables = () => {
         db.transaction((txn) => {

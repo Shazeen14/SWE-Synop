@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ApprenticeshipScreen from '../src/screens/ApprenticeshipScreen';
-import HomeScreen from '../src/screens/HomeScreen';
 import QuizScreen from '../src/screens/QuizScreen';
 import ResultScreen from '../src/screens/ResultScreen';
 import LoadingScreen from '../src/screens/LoadingScreen';
