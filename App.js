@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -19,7 +19,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -27,29 +26,36 @@ import LoadingScreen from './src/screens/LoadingScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import AdminScreen from './src/screens/AdminScreen';
+import QuizScreen from './src/screens/QuizScreen';
 
 import {AuthContextProvider} from './src/context/AuthContext';
-import RootNavigation from './src/navigation';
+import ResultScreen from './src/screens/ResultScreen';
+import ApprenticeshipScreen from './src/screens/ApprenticeshipScreen';
+import MyStack from './navigation';
+import GlobalFont from 'react-native-global-font';
 
 const Stack = createNativeStackNavigator();
+
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
+  useEffect(() => {
+    let fontName = 'Verdana'
+   GlobalFont.applyGlobal(fontName);
+  }, []);
+
   return (
+    // <View>
+    //   <LoginScreen></LoginScreen>
+    // </View>
     <SafeAreaView style={styles.root}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AuthContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen options={{headerShown: false}} name="Loading" component={LoadingScreen} />
-            <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
-            <Stack.Screen options={{headerShown: false}} name="Account" component={AccountScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AuthContextProvider>
+    <AuthContextProvider>
+    <NavigationContainer>
+      <MyStack></MyStack>
+    </NavigationContainer>
+    </AuthContextProvider>
     </SafeAreaView>
-    // <RootNavigation/>
   );
 };
 

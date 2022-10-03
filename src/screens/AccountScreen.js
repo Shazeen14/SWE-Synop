@@ -5,7 +5,8 @@ import { StackActions } from "@react-navigation/native";
 
 import { AuthContext } from "../context/AuthContext";
 import AdminScreen from "./AdminScreen";
-import HomeScreen from "./HomeScreen";
+import ApprenticeshipScreen from "./ApprenticeshipScreen";
+import LoginScreen from "./LoginScreen";
 
 const AccountScreen = ({ navigation, theme }) => {
   const { logout, loggedIn, userData } = useContext(AuthContext);
@@ -16,9 +17,10 @@ const AccountScreen = ({ navigation, theme }) => {
     }
   }, [loggedIn]);
 
-  return ( userData.name === 'shazeen1999@hotmail.co.uk' ? 
-    <AdminScreen /> :
-    <HomeScreen />
+  return (
+    userData == null ? <LoginScreen /> :
+    userData.name === 'shazeen1999@hotmail.co.uk' ? <AdminScreen /> :
+    <ApprenticeshipScreen/>
   );
 };
 

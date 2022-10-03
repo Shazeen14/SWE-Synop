@@ -82,7 +82,7 @@ const logout = async () => {
         setLoggedIn(false);
         setUserData(null);
     } catch (err) {
-        alert('Error logging in');
+        console.log('Error logging in');
     }
     };
 
@@ -99,4 +99,4 @@ const value = {
     );
 };
     
-export { AuthContext, AuthContextProvider };
+export { auth0, AuthContext, AuthContextProvider };
